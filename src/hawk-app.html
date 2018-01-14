@@ -15,6 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
@@ -89,13 +90,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="about" href="[[rootPath]]about">About</a>
-          <a name="service" href="[[rootPath]]service">Service</a>
-          <a name="tool" href="[[rootPath]]tool">Tool</a>
-          <a name="new" href="[[rootPath]]new">New</a>
-          <a name="form" href="[[rootPath]]form">Form</a>
-          <a name="grid" href="[[rootPath]]grid">Grid</a>
-          <a name="chart" href="[[rootPath]]chart">Chart</a>
+          <a name="about" href="[[rootPath]]about" on-click="navigate">About</a>
+          <a name="service" href="[[rootPath]]service" on-click="navigate">Service</a>
+          <a name="tool" href="[[rootPath]]tool" on-click="navigate">Tool</a>
+          <a name="new" href="[[rootPath]]new" on-click="navigate">New</a>
+          <a name="form" href="[[rootPath]]form" on-click="navigate">Form</a>
+          <a name="grid" href="[[rootPath]]grid" on-click="navigate">Grid</a>
+          <a name="chart" href="[[rootPath]]chart" on-click="navigate">Chart</a>
         </iron-selector>
       </app-drawer>
 
@@ -107,6 +108,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <paper-icon-button icon="hawk-icons:menu" drawer-toggle></paper-icon-button>
             <div main-title>Hawk App</div>
           </app-toolbar>
+          <paper-button raised on-tap="goBack"> Back </paper-button>
         </app-header>
 
         <iron-pages
@@ -171,6 +173,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             null,
             this._showPage404.bind(this),
             true);
+      }
+      navigate(e) {
+        window.history.pushState({},null, e.target.getAttribute('href'));
+        window.location.href=e.target.getAttribute('href');
+      }
+      goBack() {
+        window.history.back();
       }
 
       _showPage404() {
