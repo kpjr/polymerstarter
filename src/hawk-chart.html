@@ -1,0 +1,101 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+<!-- <link rel="import" href="../bower_components/promise-polyfill/src/polyfill.html"> -->
+<link rel="import" href="../bower_components/google-chart/google-chart.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<style>
+    code {
+        color: #007000;
+    }
+
+    google-chart {
+        height: 300px;
+        width: 400px;
+    }
+
+    /* Phone and tablet */
+
+    #resizing-chart {
+        height: 300px;
+        width: 400px;
+    }
+
+    /* Desktop */
+
+    @media screen and (min-width: 1024px) {
+        #resizing-chart {
+            width: 800px;
+        }
+    }
+</style>
+
+<dom-module id="hawk-chart">
+    <template>
+        <style include="shared-styles">
+            :host {
+                display: block;
+
+                padding: 10px;
+            }
+        </style>
+<iron-ajax auto url="./jsons/area-chart.json" handle-as="json" last-response="{{chatOptions}}"></iron-ajax>
+        <div class="card">
+            <div class="circle">7</div>
+            <h1>Charts</h1>
+            <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
+            <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet,
+                per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
+            <p>A simple
+                <code>google-chart</code> looks like this:</p>
+
+            <google-chart cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]' rows='[["Something", 1]]'>
+            </google-chart>
+
+            <p>Charts can be resized with CSS, but you'll need to call the
+                <code>redraw</code> method when the size changes.</p>
+            <p>Here's a basic responsive example using only CSS and JS (You could also use
+                <code>&lt;iron-media-query&gt;</code>):</p>
+            <google-chart id="resizing-chart" type="column" options='{"title": "Responsive chart",
+            "vAxis": {"minValue" : 0, "maxValue": 10}}' cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
+                rows='[ ["Col1", 5.0],["Col2", 5.0],["Col3", 5.0] ]'>
+            </google-chart>
+            <p>Here's an area chart:</p>
+
+            <google-chart
+              type="area"
+              options='{"title": "Days in a month"}'
+              cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
+              rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
+            </google-chart>
+            <p>Here's a bubble chart:</p>
+
+            <google-chart
+              type="bubble"
+              data='[["ID", "Life Expectancy", "Fertility Rate", "Region", "Population"],
+                     ["CAN", 80.66, 1.67, "North America", 33739900],
+                     ["DEU", 79.84, 1.36, "Europe",        81902307],
+                     ["DNK", 78.6,  1.84, "Europe",        5523095],
+                     ["EGY", 72.73, 2.78, "Middle East",   79716203],
+                     ["GBR", 80.05, 2,    "Europe",        61801570],
+                     ["IRN", 72.49, 1.7,  "Middle East",   73137148],
+                     ["IRQ", 68.09, 4.77, "Middle East",   31090763],
+                     ["ISR", 81.55, 2.96, "Middle East",   7485600],
+                     ["RUS", 68.6,  1.54, "Europe",        141850000],
+                     ["USA", 78.09, 2.05, "North America", 307007000]]'>
+            </google-chart>
+        </div>
+    </template>
+
+    <script>
+        class HawkChart extends Polymer.Element {
+            static get is() { return 'hawk-chart'; }
+        }
+        console.log(this.chatOptions);
+        var media = window.matchMedia('(min-width: 1024px)');
+        media.addListener(function () {
+            document.getElementById('resizing-chart').redraw();
+        });
+
+        window.customElements.define(HawkChart.is, HawkChart);
+    </script>
+</dom-module>

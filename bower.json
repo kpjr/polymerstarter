@@ -30,7 +30,11 @@
     "iron-form": "PolymerElements/iron-form#^2.0.1",
     "vaadin-grid": "vaadin/vaadin-grid#^4.1.0",
     "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#^2.0.1",
-    "iron-scroll-target-behavior": "PolymerElements/iron-scroll-target-behavior#^2.0.0"
+    "iron-scroll-target-behavior": "PolymerElements/iron-scroll-target-behavior#^2.0.0",
+    "google-chart": "GoogleWebComponents/google-chart#^2.0.0",
+    "google-apis": "GoogleWebComponents/google-apis#^2.0.1",
+    "promise-polyfill": "^7.0.0",
+    "paper-tabs": "PolymerElements/paper-tabs#^2.0.0"
   },
   "resolutions": {
     "polymer": "^2.0.0"
