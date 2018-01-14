@@ -1,0 +1,112 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-selection-column.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-sorter.html">
+<script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<style>
+  paper-input {
+    max-width: 400px;
+    margin: auto;
+  }
+
+  iron-icon,
+  div[suffix] {
+    color: hsl(0, 0%, 50%);
+    margin-right: 12px;
+  }
+
+  paper-checkbox {
+    font-family: 'Roboto', sans-serif;
+    margin: 24px;
+  }
+
+  paper-checkbox:first-child {
+    --primary-color: #ff5722;
+  }
+
+  paper-checkbox.styled {
+    align-self: center;
+    border: 1px solid var(--paper-green-200);
+    padding: 8px 16px;
+    --paper-checkbox-checked-color: var(--paper-green-500);
+    --paper-checkbox-checked-ink-color: var(--paper-green-500);
+    --paper-checkbox-unchecked-color: var(--paper-green-900);
+    --paper-checkbox-unchecked-ink-color: var(--paper-green-900);
+    --paper-checkbox-label-color: var(--paper-green-500);
+    --paper-checkbox-label-spacing: 0;
+    --paper-checkbox-margin: 8px 16px 8px 0;
+    --paper-checkbox-vertical-align: top;
+  }
+
+  paper-checkbox .subtitle {
+    display: block;
+    font-size: 0.8em;
+    margin-top: 2px;
+    max-width: 150px;
+  }
+
+  paper-dropdown-menu,
+  paper-listbox {
+    width: 250px;
+  }
+
+  paper-dropdown-menu {
+    height: 200px;
+    margin: auto;
+    display: block;
+  }
+</style>
+<dom-module id="hawk-grid">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+    </style>
+    <div class="card">
+      <div class="circle">6</div>
+      <h1>Grid Page</h1>
+      <iron-ajax auto url="https://demo.vaadin.com/demo-data/1.0/people?count=200" handle-as="json" last-response="{{users}}"></iron-ajax>
+
+      <vaadin-grid items="[[users.result]]" column-reordering-allowed multi-sort>
+
+        <vaadin-grid-selection-column auto-select frozen> </vaadin-grid-selection-column>
+
+        <vaadin-grid-column width="9em" resizable>
+          <template class="header">
+            <vaadin-grid-sorter path="firstName">First Name</vaadin-grid-sorter>
+          </template>
+          <template>[[item.firstName]]</template>
+        </vaadin-grid-column>
+
+        <vaadin-grid-column width="9em" resizable>
+          <template class="header">
+            <vaadin-grid-sorter path="lastName">Last Name</vaadin-grid-sorter>
+          </template>
+          <template>[[item.lastName]]</template>
+        </vaadin-grid-column>
+
+        <vaadin-grid-column width="15em" flex-grow="2" resizable>
+          <template class="header">
+            <vaadin-grid-sorter path="address.street">Address</vaadin-grid-sorter>
+          </template>
+          <template>[[item.address.street]], [[item.address.city]]</template>
+        </vaadin-grid-column>
+
+      </vaadin-grid>
+    </div>
+  </template>
+
+  <script>
+    class HawkGrid extends Polymer.Element {
+      static get is() { return 'hawk-grid'; }
+
+    }
+
+    window.customElements.define(HawkGrid.is, HawkGrid);
+  </script>
+</dom-module>
